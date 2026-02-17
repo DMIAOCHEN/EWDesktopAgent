@@ -131,7 +131,7 @@ description: "Task list for intelligent desktop client implementation"
 
 - [x] T039 [P] [US3] Create reminder rule configuration UI
 - [x] T040 [US3] Implement reminder rule engine
-- [ ] T041 [P] [US3] Create system notification service (Windows Toast)
+- [x] T041 [P] [US3] Create system notification service (Windows Toast)
 - [ ] T042 [US3] Implement notification click handler (navigate to target)
 - [x] T043 [US3] Add offline caching for reminder records
 - [ ] T044 [US3] Implement sync on reconnection

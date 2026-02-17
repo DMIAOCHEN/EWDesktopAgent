@@ -12,6 +12,7 @@ pub mod reminder;
 pub mod personalization;
 pub mod file_ops;
 pub mod downloader;
+pub mod notification;
 
 use browser::{BrowserState, init_browser_state};
 use tracing::info;
@@ -89,6 +90,8 @@ pub fn run() {
             file_ops::execute_file_operation,
             file_ops::preview_organization,
             downloader::download_file,
+            notification::show_notification,
+            notification::request_notification_permission,
         ])
         .setup(|app| {
             info!("Application setup complete");
