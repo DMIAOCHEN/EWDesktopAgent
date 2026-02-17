@@ -187,12 +187,12 @@ description: "Task list for intelligent desktop client implementation"
 
 ### Implementation for User Story 6
 
-- [ ] T058 [P] [US6] Implement user behavior logger
-- [ ] T059 [US6] Create behavior pattern analysis engine
+- [x] T058 [P] [US6] Implement user behavior logger
+- [x] T059 [US6] Create behavior pattern analysis engine
 - [x] T060 [P] [US6] Implement time pattern learning
-- [ ] T061 [US6] Create recommendation engine
-- [ ] T062 [P] [US6] Implement recommendation feedback loop
-- [ ] T063 [US6] Add user preference management UI
+- [x] T061 [US6] Create recommendation engine
+- [x] T062 [P] [US6] Implement recommendation feedback loop
+- [x] T063 [US6] Add user preference management UI
 
 **Checkpoint**: Personalization learns and adapts
 
@@ -206,10 +206,10 @@ description: "Task list for intelligent desktop client implementation"
 
 ### Implementation for User Story 8
 
-- [ ] T064 [P] [US8] Implement file system access layer (Rust)
+- [x] T064 [P] [US8] Implement file system access layer (Rust)
 - [x] T065 [US8] Create file operation permission manager
-- [ ] T066 [P] [US8] Implement file organizer (by date/type/name)
-- [ ] T067 [US8] Add operation preview generation
+- [x] T066 [P] [US8] Implement file organizer (by date/type/name)
+- [x] T067 [US8] Add operation preview generation
 - [x] T068 [US8] Create file operation UI dialogs
 
 **Checkpoint**: File operations work safely
