@@ -7,6 +7,7 @@ pub mod storage;
 pub mod voice;
 pub mod ai;
 pub mod core;
+pub mod auth;
 
 use browser::{BrowserState, init_browser_state};
 use tracing::info;
