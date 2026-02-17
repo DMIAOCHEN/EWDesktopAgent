@@ -9,6 +9,8 @@ pub mod ai;
 pub mod core;
 pub mod auth;
 pub mod reminder;
+pub mod personalization;
+pub mod file_ops;
 
 use browser::{BrowserState, init_browser_state};
 use tracing::info;
@@ -77,6 +79,12 @@ pub fn run() {
             reminder::delete_reminder_rule,
             reminder::get_reminder_records,
             reminder::mark_reminder_read,
+            personalization::log_behavior,
+            personalization::analyze_user_patterns,
+            personalization::get_recommendations,
+            personalization::submit_feedback,
+            file_ops::execute_file_operation,
+            file_ops::preview_organization,
         ])
         .setup(|app| {
             info!("Application setup complete");

@@ -47,16 +47,16 @@ description: "Task list for intelligent desktop client implementation"
 
 **CRITICAL**: No user story work can begin until this phase is complete
 
-- [ ] T009 [P] Implement WebView2 browser wrapper in Rust
-- [ ] T010 [P] Create system tray and window management
-- [ ] T011 [P] Implement Tauri IPC communication layer
-- [ ] T012 [P] Create SQLite database schema with all entities
-- [ ] T013 [P] Implement user authentication flow (login/logout)
-- [ ] T014 [P] Implement business system configuration loader
-- [ ] T015 [P] Create FastGPT API client service
-- [ ] T016 [P] Setup AI Gateway basic API structure (.NET Core)
-- [ ] T017 [P] Implement Token mapping service in Gateway
-- [ ] T018 Create base UI components (tabs, navigation, settings)
+- [x] T009 [P] Implement WebView2 browser wrapper in Rust
+- [x] T010 [P] Create system tray and window management
+- [x] T011 [P] Implement Tauri IPC communication layer
+- [x] T012 [P] Create SQLite database schema with all entities
+- [x] T013 [P] Implement user authentication flow (login/logout)
+- [x] T014 [P] Implement business system configuration loader
+- [x] T015 [P] Create FastGPT API client service
+- [x] T016 [P] Setup AI Gateway basic API structure (.NET Core)
+- [x] T017 [P] Implement Token mapping service in Gateway
+- [x] T018 Create base UI components (tabs, navigation, settings)
 
 **Checkpoint**: Foundation ready - user story implementation can now begin in parallel
 
@@ -70,11 +70,11 @@ description: "Task list for intelligent desktop client implementation"
 
 ### Implementation for User Story 1
 
-- [ ] T019 [P] [US1] Create business system list UI in src/components/SystemList.tsx
-- [ ] T020 [P] [US1] Implement browser tab manager in src-tauri/src/browser/tab_manager.rs
-- [ ] T021 [US1] Implement WebView2 page loading and navigation
-- [ ] T022 [US1] Create browser toolbar component (back/forward/refresh)
-- [ ] T023 [P] [US1] Implement multi-tab session management
+- [x] T019 [P] [US1] Create business system list UI in src/components/SystemList.tsx
+- [x] T020 [P] [US1] Implement browser tab manager in src-tauri/src/browser/tab_manager.rs
+- [x] T021 [US1] Implement WebView2 page loading and navigation
+- [x] T022 [US1] Create browser toolbar component (back/forward/refresh)
+- [x] T023 [P] [US1] Implement multi-tab session management
 - [ ] T024 [US1] Add file download handler and save dialog
 - [ ] T025 [US1] Implement tab memory limit enforcement (<200MB per tab)
 
@@ -90,13 +90,13 @@ description: "Task list for intelligent desktop client implementation"
 
 ### Implementation for User Story 2
 
-- [ ] T026 [P] [US2] Create assistant chat UI component
-- [ ] T027 [US2] Implement assistant command parser
+- [x] T026 [P] [US2] Create assistant chat UI component
+- [x] T027 [US2] Implement assistant command parser
 - [ ] T028 [P] [US2] Create WebView2 DOM injection for operation execution
 - [ ] T029 [US2] Implement action executor (click, input, navigate, search)
 - [ ] T030 [P] [US2] Create page context extractor (current URL, forms, links)
-- [ ] T031 [US2] Integrate FastGPT client for intent understanding
-- [ ] T032 [US2] Implement action result display and feedback
+- [x] T031 [US2] Integrate FastGPT client for intent understanding
+- [x] T032 [US2] Implement action result display and feedback
 
 **Checkpoint**: Assistant can understand and execute web operations
 
@@ -110,10 +110,10 @@ description: "Task list for intelligent desktop client implementation"
 
 ### Implementation for User Story 7
 
-- [ ] T033 [P] [US7] Define risk rules configuration in src/core/security/risk_rules.json
-- [ ] T034 [US7] Implement risk assessment engine
-- [ ] T035 [P] [US7] Create confirmation dialog UI component
-- [ ] T036 [US7] Implement operation preview display
+- [x] T033 [P] [US7] Define risk rules configuration in src/core/security/risk_rules.json
+- [x] T034 [US7] Implement risk assessment engine
+- [x] T035 [P] [US7] Create confirmation dialog UI component
+- [x] T036 [US7] Implement operation preview display
 - [ ] T037 [US7] Add whitelist management UI
 - [ ] T038 [US7] Implement operation audit logging
 
@@ -129,11 +129,11 @@ description: "Task list for intelligent desktop client implementation"
 
 ### Implementation for User Story 3
 
-- [ ] T039 [P] [US3] Create reminder rule configuration UI
-- [ ] T040 [US3] Implement reminder rule engine
+- [x] T039 [P] [US3] Create reminder rule configuration UI
+- [x] T040 [US3] Implement reminder rule engine
 - [ ] T041 [P] [US3] Create system notification service (Windows Toast)
 - [ ] T042 [US3] Implement notification click handler (navigate to target)
-- [ ] T043 [US3] Add offline caching for reminder records
+- [x] T043 [US3] Add offline caching for reminder records
 - [ ] T044 [US3] Implement sync on reconnection
 
 **Checkpoint**: Reminders work online and sync when offline
@@ -150,12 +150,12 @@ description: "Task list for intelligent desktop client implementation"
 
 - [ ] T045 [P] [US4] Integrate Snowboy wake word engine
 - [ ] T046 [P] [US4] Integrate Silero VAD for voice activity detection
-- [ ] T047 [US4] Create audio capture service
+- [x] T047 [US4] Create audio capture service
 - [ ] T048 [P] [US4] Implement ASR client (third-party API integration)
 - [ ] T049 [P] [US4] Integrate Kokoro TTS engine
-- [ ] T050 [US4] Implement TTS fallback to cloud service
-- [ ] T051 [US4] Create voice activation button UI
-- [ ] T052 [US4] Implement voice feedback playback
+- [x] T050 [US4] Implement TTS fallback to cloud service
+- [x] T051 [US4] Create voice activation button UI
+- [x] T052 [US4] Implement voice feedback playback
 
 **Checkpoint**: Voice interaction fully functional
 
@@ -169,10 +169,10 @@ description: "Task list for intelligent desktop client implementation"
 
 ### Implementation for User Story 5
 
-- [ ] T053 [P] [US5] Create chat history storage
-- [ ] T054 [US5] Implement FastGPT conversation API integration
-- [ ] T055 [P] [US5] Create chat UI with message history
-- [ ] T056 [US5] Implement business context injection
+- [x] T053 [P] [US5] Create chat history storage
+- [x] T054 [US5] Implement FastGPT conversation API integration
+- [x] T055 [P] [US5] Create chat UI with message history
+- [x] T056 [US5] Implement business context injection
 - [ ] T057 [US5] Add streaming response support
 
 **Checkpoint**: AI chat fully functional
