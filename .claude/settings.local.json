@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git fetch:*)",
+      "Bash(powershell:*)",
+      "Bash(node:*)",
+      "Bash(npm --version)",
+      "Bash(cargo:*)",
+      "Bash(rustc:*)",
+      "Bash(git add:*)"
+    ]
+  }
+}

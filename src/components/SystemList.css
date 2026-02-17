@@ -1,0 +1,37 @@
+.system-list {
+  padding: 1rem;
+}
+
+.system-list h3 {
+  font-size: 0.875rem;
+  color: #666;
+  margin-bottom: 0.75rem;
+}
+
+.system-list ul {
+  list-style: none;
+}
+
+.system-list li {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem;
+  margin-bottom: 0.5rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.system-list li:hover {
+  background-color: #e6f7ff;
+}
+
+.system-icon {
+  margin-right: 0.75rem;
+  font-size: 1.25rem;
+}
+
+.system-name {
+  font-size: 0.875rem;
+  color: #333;
+}
