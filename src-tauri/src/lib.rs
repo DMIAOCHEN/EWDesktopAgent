@@ -8,6 +8,7 @@ pub mod voice;
 pub mod ai;
 pub mod core;
 pub mod auth;
+pub mod reminder;
 
 use browser::{BrowserState, init_browser_state};
 use tracing::info;
@@ -68,6 +69,14 @@ pub fn run() {
             storage::save_user_preferences,
             storage::load_user_preferences,
             security::assess_risk,
+            auth::login,
+            auth::logout,
+            reminder::create_reminder_rule,
+            reminder::get_reminder_rules,
+            reminder::update_reminder_rule,
+            reminder::delete_reminder_rule,
+            reminder::get_reminder_records,
+            reminder::mark_reminder_read,
         ])
         .setup(|app| {
             info!("Application setup complete");
