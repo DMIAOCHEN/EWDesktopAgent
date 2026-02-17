@@ -11,6 +11,7 @@ pub mod auth;
 pub mod reminder;
 pub mod personalization;
 pub mod file_ops;
+pub mod downloader;
 
 use browser::{BrowserState, init_browser_state};
 use tracing::info;
@@ -87,6 +88,7 @@ pub fn run() {
             personalization::submit_feedback,
             file_ops::execute_file_operation,
             file_ops::preview_organization,
+            downloader::download_file,
         ])
         .setup(|app| {
             info!("Application setup complete");

@@ -28,6 +28,7 @@ reqwest = { version = "0.12", features = ["json"] }
 chrono = { version = "0.4", features = ["serde"] }
 uuid = { version = "1", features = ["v4", "serde"] }
 dirs = "5"
+url = "2"
 
 [features]
 default = ["custom-protocol"]

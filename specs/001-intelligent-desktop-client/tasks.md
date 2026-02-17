@@ -75,7 +75,7 @@ description: "Task list for intelligent desktop client implementation"
 - [x] T021 [US1] Implement WebView2 page loading and navigation
 - [x] T022 [US1] Create browser toolbar component (back/forward/refresh)
 - [x] T023 [P] [US1] Implement multi-tab session management
-- [ ] T024 [US1] Add file download handler and save dialog
+- [x] T024 [US1] Add file download handler and save dialog
 - [ ] T025 [US1] Implement tab memory limit enforcement (<200MB per tab)
 
 **Checkpoint**: Browser core functional - users can open and use business systems
@@ -115,7 +115,7 @@ description: "Task list for intelligent desktop client implementation"
 - [x] T035 [P] [US7] Create confirmation dialog UI component
 - [x] T036 [US7] Implement operation preview display
 - [ ] T037 [US7] Add whitelist management UI
-- [ ] T038 [US7] Implement operation audit logging
+- [x] T038 [US7] Implement operation audit logging
 
 **Checkpoint**: Risk control functional for all assistant operations
 
