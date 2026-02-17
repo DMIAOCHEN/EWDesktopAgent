@@ -207,7 +207,7 @@ description: "Task list for intelligent desktop client implementation"
 ### Implementation for User Story 8
 
 - [ ] T064 [P] [US8] Implement file system access layer (Rust)
-- [ ] T065 [US8] Create file operation permission manager
+- [x] T065 [US8] Create file operation permission manager
 - [ ] T066 [P] [US8] Implement file organizer (by date/type/name)
 - [ ] T067 [US8] Add operation preview generation
 - [ ] T068 [US8] Create file operation UI dialogs

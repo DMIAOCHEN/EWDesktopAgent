@@ -1,8 +1,74 @@
 // File operations module - Local file system management
 use serde::{Deserialize, Serialize};
+use std::collections::HashSet;
 use std::fs;
 use std::path::PathBuf;
+use std::sync::Mutex;
 use tracing::info;
+
+/// File operation permission
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct FilePermission {
+    pub path: String,
+    pub allowed_operations: HashSet<String>,
+}
+
+/// Permission manager state
+pub struct PermissionManager {
+    permissions: Mutex<HashSet<String>>,
+}
+
+impl Default for PermissionManager {
+    fn default() -> Self {
+        Self {
+            permissions: Mutex::new(HashSet::new()),
+        }
+    }
+}
+
+impl PermissionManager {
+    /// Check if operation is allowed
+    pub fn check_permission(&self, path: &str, operation: &str) -> bool {
+        let permissions = self.permissions.lock().unwrap();
+
+        // Check exact match
+        if permissions.contains(path) {
+            return true;
+        }
+
+        // Check parent directory
+        let path_obj = PathBuf::from(path);
+        if let Some(parent) = path_obj.parent() {
+            let parent_str = parent.to_string_lossy().to_string();
+            if permissions.contains(&parent_str) {
+                return true;
+            }
+        }
+
+        // Default: allow downloads directory
+        if let Some(downloads) = dirs::download_dir() {
+            if path.starts_with(downloads.to_string_lossy().as_ref()) {
+                return true;
+            }
+        }
+
+        false
+    }
+
+    /// Grant permission
+    pub fn grant_permission(&self, path: &str) {
+        let mut permissions = self.permissions.lock().unwrap();
+        permissions.insert(path.to_string());
+        info!("Granted permission for: {}", path);
+    }
+
+    /// Revoke permission
+    pub fn revoke_permission(&self, path: &str) {
+        let mut permissions = self.permissions.lock().unwrap();
+        permissions.remove(path);
+        info!("Revoked permission for: {}", path);
+    }
+}
 
 /// File operation types
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -171,4 +237,24 @@ pub fn execute_file_operation(operation: FileOperation) -> Result<OperationResul
 #[tauri::command]
 pub fn preview_organization(source_dir: String, rule: String) -> Result<Vec<String>, String> {
     FileService::preview_organization(&source_dir, &rule)
+}
+
+#[tauri::command]
+pub fn check_file_permission(path: String, operation: String) -> bool {
+    let manager = PermissionManager::default();
+    manager.check_permission(&path, &operation)
+}
+
+#[tauri::command]
+pub fn grant_file_permission(path: String) -> Result<(), String> {
+    let manager = PermissionManager::default();
+    manager.grant_permission(&path);
+    Ok(())
+}
+
+#[tauri::command]
+pub fn revoke_file_permission(path: String) -> Result<(), String> {
+    let manager = PermissionManager::default();
+    manager.revoke_permission(&path);
+    Ok(())
 }
