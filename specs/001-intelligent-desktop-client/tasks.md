@@ -114,7 +114,7 @@ description: "Task list for intelligent desktop client implementation"
 - [x] T034 [US7] Implement risk assessment engine
 - [x] T035 [P] [US7] Create confirmation dialog UI component
 - [x] T036 [US7] Implement operation preview display
-- [ ] T037 [US7] Add whitelist management UI
+- [x] T037 [US7] Add whitelist management UI
 - [x] T038 [US7] Implement operation audit logging
 
 **Checkpoint**: Risk control functional for all assistant operations
@@ -132,7 +132,7 @@ description: "Task list for intelligent desktop client implementation"
 - [x] T039 [P] [US3] Create reminder rule configuration UI
 - [x] T040 [US3] Implement reminder rule engine
 - [x] T041 [P] [US3] Create system notification service (Windows Toast)
-- [ ] T042 [US3] Implement notification click handler (navigate to target)
+- [x] T042 [US3] Implement notification click handler (navigate to target)
 - [x] T043 [US3] Add offline caching for reminder records
 - [ ] T044 [US3] Implement sync on reconnection
 
@@ -189,7 +189,7 @@ description: "Task list for intelligent desktop client implementation"
 
 - [ ] T058 [P] [US6] Implement user behavior logger
 - [ ] T059 [US6] Create behavior pattern analysis engine
-- [ ] T060 [P] [US6] Implement time pattern learning
+- [x] T060 [P] [US6] Implement time pattern learning
 - [ ] T061 [US6] Create recommendation engine
 - [ ] T062 [P] [US6] Implement recommendation feedback loop
 - [ ] T063 [US6] Add user preference management UI
