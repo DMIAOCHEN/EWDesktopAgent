@@ -70,6 +70,8 @@ pub fn run() {
             storage::load_session,
             storage::save_user_preferences,
             storage::load_user_preferences,
+            storage::log_audit,
+            storage::query_audit_logs,
             security::assess_risk,
             auth::login,
             auth::logout,

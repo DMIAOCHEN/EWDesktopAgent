@@ -110,6 +110,63 @@ impl Database {
         info!("Database schema initialized");
         Ok(())
     }
+
+    /// Log an audit entry
+    pub fn log_audit(&self, user_id: Option<&str>, action: &str, details: &str, risk_level: &str) -> Result<(), String> {
+        let id = uuid::Uuid::new_v4().to_string();
+        let created_at = chrono::Utc::now().to_rfc3339();
+
+        self.conn.execute(
+            "INSERT INTO audit_logs (id, user_id, action, details, risk_level, created_at)
+             VALUES (?1, ?2, ?3, ?4, ?5, ?6)",
+            (&id, &user_id, &action, &details, &risk_level, &created_at),
+        ).map_err(|e| e.to_string())?;
+
+        info!("Audit log: {} - {} by {:?}", action, details, user_id);
+        Ok(())
+    }
+
+    /// Query audit logs
+    pub fn query_audit_logs(&self, user_id: Option<&str>, limit: i32) -> Result<Vec<AuditLogEntry>, String> {
+        let mut stmt = if let Some(uid) = user_id {
+            self.conn.prepare(
+                "SELECT id, user_id, action, details, risk_level, created_at
+                 FROM audit_logs WHERE user_id = ?1 ORDER BY created_at DESC LIMIT ?2"
+            ).map_err(|e| e.to_string())?
+
+        } else {
+            self.conn.prepare(
+                "SELECT id, user_id, action, details, risk_level, created_at
+                 FROM audit_logs ORDER BY created_at DESC LIMIT ?1"
+            ).map_err(|e| e.to_string())?
+        };
+
+        let logs = stmt.query_map(if let Some(uid) = user_id { [uid, &limit.to_string()] } else { [&limit.to_string()] }, |row| {
+            Ok(AuditLogEntry {
+                id: row.get(0)?,
+                user_id: row.get(1)?,
+                action: row.get(2)?,
+                details: row.get(3)?,
+                risk_level: row.get(4)?,
+                created_at: row.get(5)?,
+            })
+        }).map_err(|e| e.to_string())?
+        .filter_map(|r| r.ok())
+        .collect();
+
+        Ok(logs)
+    }
+}
+
+/// Audit log entry
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct AuditLogEntry {
+    pub id: String,
+    pub user_id: String,
+    pub action: String,
+    pub details: String,
+    pub risk_level: String,
+    pub created_at: String,
 }
 
 /// Database state managed by Tauri
@@ -229,4 +286,20 @@ pub fn load_user_preferences(user_id: String) -> Result<Option<UserPreferences>,
         Err(rusqlite::Error::QueryReturnedNoRows) => Ok(None),
         Err(e) => Err(e.to_string()),
     }
+}
+
+/// Tauri commands for audit logging
+
+#[tauri::command]
+pub fn log_audit(user_id: Option<String>, action: String, details: String, risk_level: String) -> Result<(), String> {
+    let db_path = get_db_path();
+    let db = Database::new(db_path.to_str().unwrap()).map_err(|e| e.to_string())?;
+    db.log_audit(user_id.as_deref(), &action, &details, &risk_level)
+}
+
+#[tauri::command]
+pub fn query_audit_logs(user_id: Option<String>, limit: i32) -> Result<Vec<AuditLogEntry>, String> {
+    let db_path = get_db_path();
+    let db = Database::new(db_path.to_str().unwrap()).map_err(|e| e.to_string())?;
+    db.query_audit_logs(user_id.as_deref(), limit)
 }
