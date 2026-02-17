@@ -1,0 +1,110 @@
+{
+  "version": "1.0",
+  "rules": [
+    {
+      "id": "high_risk_operations",
+      "name": "High Risk Operations",
+      "description": "Operations that can cause data loss or financial impact",
+      "risk_level": "High",
+      "patterns": [
+        {
+          "action_type": "submit",
+          "target_match": "*form*",
+          "reason": "Form submission may cause data changes"
+        },
+        {
+          "action_type": "delete",
+          "target_match": "*",
+          "reason": "Delete operations are irreversible"
+        },
+        {
+          "action_type": "payment",
+          "target_match": "*",
+          "reason": "Payment operations involve financial transactions"
+        },
+        {
+          "action_type": "transfer",
+          "target_match": "*",
+          "reason": "Transfer operations may move funds or data"
+        },
+        {
+          "action_type": "confirm",
+          "target_match": "*",
+          "reason": "Confirmation actions may commit changes"
+        }
+      ],
+      "requires_confirmation": true,
+      "allowed_on_whitelist": false
+    },
+    {
+      "id": "medium_risk_operations",
+      "name": "Medium Risk Operations",
+      "description": "Operations that may have side effects",
+      "risk_level": "Medium",
+      "patterns": [
+        {
+          "action_type": "download",
+          "target_match": "*.exe,*.zip,*.rar",
+          "reason": "File downloads may contain malicious content"
+        },
+        {
+          "action_type": "navigate_external",
+          "target_match": "*",
+          "reason": "External navigation leaves the business system"
+        },
+        {
+          "action_type": "open_new_tab",
+          "target_match": "*",
+          "reason": "Opening new tabs may lead to external sites"
+        },
+        {
+          "action_type": "paste",
+          "target_match": "*password*,*credit*",
+          "reason": "Pasting sensitive data may be unsafe"
+        }
+      ],
+      "requires_confirmation": false,
+      "show_preview": true,
+      "allowed_on_whitelist": true
+    },
+    {
+      "id": "low_risk_operations",
+      "name": "Low Risk Operations",
+      "description": "Safe read-only operations",
+      "risk_level": "Low",
+      "patterns": [
+        {
+          "action_type": "search",
+          "target_match": "*",
+          "reason": "Search is a read-only operation"
+        },
+        {
+          "action_type": "click",
+          "target_match": "*.png,*.jpg,*.html",
+          "reason": "Clicking links is generally safe"
+        },
+        {
+          "action_type": "scroll",
+          "target_match": "*",
+          "reason": "Scrolling is a safe operation"
+        },
+        {
+          "action_type": "select",
+          "target_match": "*",
+          "reason": "Selection is a read-only operation"
+        }
+      ],
+      "requires_confirmation": false,
+      "show_preview": false,
+      "allowed_on_whitelist": true
+    }
+  ],
+  "whitelist": {
+    "enabled": true,
+    "domains": [
+      "localhost",
+      "*.hospital.com",
+      "*.medical-system.cn"
+    ]
+  }
+}

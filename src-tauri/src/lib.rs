@@ -6,6 +6,7 @@ pub mod config;
 pub mod storage;
 pub mod voice;
 pub mod ai;
+pub mod core;
 
 use browser::{BrowserState, init_browser_state};
 use tracing::info;
@@ -65,6 +66,7 @@ pub fn run() {
             storage::load_session,
             storage::save_user_preferences,
             storage::load_user_preferences,
+            security::assess_risk,
         ])
         .setup(|app| {
             info!("Application setup complete");
