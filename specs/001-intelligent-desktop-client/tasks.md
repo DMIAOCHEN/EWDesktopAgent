@@ -210,7 +210,7 @@ description: "Task list for intelligent desktop client implementation"
 - [x] T065 [US8] Create file operation permission manager
 - [ ] T066 [P] [US8] Implement file organizer (by date/type/name)
 - [ ] T067 [US8] Add operation preview generation
-- [ ] T068 [US8] Create file operation UI dialogs
+- [x] T068 [US8] Create file operation UI dialogs
 
 **Checkpoint**: File operations work safely
 
