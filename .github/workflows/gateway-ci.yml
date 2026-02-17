@@ -1,0 +1,46 @@
+name: AI Gateway CI
+
+on:
+  push:
+    branches: [main, master]
+    paths:
+      - 'ai-gateway/**'
+  pull_request:
+    branches: [main, master]
+    paths:
+      - 'ai-gateway/**'
+
+jobs:
+  build-gateway:
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '8.0.x'
+
+    - name: Restore dependencies
+      working-directory: ai-gateway
+      run: dotnet restore
+
+    - name: Build
+      working-directory: ai-gateway
+      run: dotnet build --configuration Release --no-restore
+
+  test:
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '8.0.x'
+
+    - name: Test
+      working-directory: ai-gateway
+      run: dotnet test --configuration Release --no-build --verbosity normal
