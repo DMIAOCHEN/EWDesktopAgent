@@ -1,0 +1,56 @@
+version: '3.8'
+
+services:
+  # AI Gateway API
+  ai-gateway:
+    image: ghcr.io/${GITHUB_REPOSITORY:-ewdesktopagent}/ai-gateway:latest
+    build:
+      context: ./ai-gateway
+      dockerfile: src/AIGateway.API/Dockerfile
+    container_name: ew-ai-gateway
+    ports:
+      - "5000:80"
+      - "5001:443"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ConnectionStrings__PostgreSQL=Host=postgres;Database=aigateway;Username=postgres;Password=your-password
+      - TZ=Asia/Shanghai
+    depends_on:
+      - postgres
+    restart: unless-stopped
+    networks:
+      - ew-network
+
+  # PostgreSQL Database
+  postgres:
+    image: postgres:15-alpine
+    container_name: ew-postgres
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=your-password
+      - POSTGRES_DB=aigateway
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: unless-stopped
+    networks:
+      - ew-network
+
+  # Redis (for caching and sessions)
+  redis:
+    image: redis:7-alpine
+    container_name: ew-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    restart: unless-stopped
+    networks:
+      - ew-network
+
+volumes:
+  postgres_data:
+  redis_data:
+
+networks:
+  ew-network:
+    driver: bridge

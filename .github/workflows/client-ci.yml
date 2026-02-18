@@ -1,8 +1,10 @@
-name: Client CI
+name: Client CI & Release
 
 on:
   push:
     branches: [main, master]
+    tags:
+      - 'v*'
   pull_request:
     branches: [main, master]
 
@@ -10,8 +12,9 @@ env:
   CARGO_TERM_COLOR: always
 
 jobs:
-  build-client:
+  build:
     runs-on: windows-latest
+    if: github.event_name == 'pull_request'
 
     steps:
     - uses: actions/checkout@v4
@@ -30,7 +33,7 @@ jobs:
       with:
         workspaces: './src-tauri -> target'
 
-    - name: Install frontend dependencies
+    - name: Install dependencies
       run: npm ci
 
     - name: Check TypeScript
@@ -62,3 +65,49 @@ jobs:
     - name: Run Rust tests
       working-directory: src-tauri
       run: cargo test --verbose
+
+  release:
+    runs-on: windows-latest
+    if: startsWith(github.ref, 'refs/tags/v')
+    needs: test
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup Rust
+      uses: dtolnay/rust-toolchain@stable
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        cache: 'npm'
+
+    - name: Cache Cargo
+      uses: Swatinem/rust-cache@v2
+      with:
+        workspaces: './src-tauri -> target'
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Build Tauri
+      uses: tauri-apps/tauri-action@v0
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tagName: ${{ github.ref_name }}
+        releaseName: 'EW Desktop Agent v${{ github.ref_name }}'
+        releaseBody: 'See the assets to download this version and install.'
+        releaseDraft: false
+        prerelease: false
+
+    - name: Upload Release Assets
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ github.event.release.upload_url }}
+        asset_path: .\src-tauri\target\release\bundle\nsis\EWDesktopAgent_*.exe
+        asset_name: EWDesktopAgent-${{ github.ref_name }}-x64-setup.exe
+        asset_content_type: application/x-msdownload

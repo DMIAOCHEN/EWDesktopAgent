@@ -1,0 +1,42 @@
+# .NET
+bin/
+obj/
+*.user
+*.suo
+*.cache
+*.log
+
+# Build results
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+build/
+bld/
+
+# Node
+node_modules/
+npm-debug.log
+
+# IDE
+.vs/
+.vscode/
+.idea/
+*.swp
+
+# Git
+.git/
+.gitignore
+
+# Docs
+docs/
+README.md
+
+# CI
+.github/
+.gitlab-ci.yml
+azure-pipelines.yml
+
+# Misc
+*.DS_Store
+Thumbs.db
