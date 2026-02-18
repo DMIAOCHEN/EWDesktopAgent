@@ -19,12 +19,14 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v3
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '8.0.x'
 
     - name: Build Gateway
       working-directory: ai-gateway
-      run: dotnet build --configuration Release --no-restore
+      run: dotnet build --configuration Release
 
   test:
     runs-on: ubuntu-latest
@@ -39,7 +41,7 @@ jobs:
 
     - name: Test
       working-directory: ai-gateway
-      run: dotnet test --configuration Release --no-build --verbosity normal
+      run: dotnet test --configuration Release --verbosity normal
 
   docker:
     runs-on: ubuntu-latest
