@@ -116,7 +116,7 @@ impl AiClient {
     /// Parse actions from AI response
     fn parse_actions(content: &str) -> Vec<AiAction> {
         // Simple action parsing - in production, this would be more sophisticated
-        let mut actions = Vec::new();
+        let actions = Vec::new();
 
         // Look for action patterns like [action:click:value]
         if content.contains("[action:") {

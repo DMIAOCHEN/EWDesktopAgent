@@ -3,7 +3,7 @@ use rusqlite::{Connection, Result};
 use serde::{Deserialize, Serialize};
 use std::path::PathBuf;
 use std::sync::Mutex;
-use tracing::{error, info};
+use tracing::info;
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct User {
@@ -128,31 +128,43 @@ impl Database {
 
     /// Query audit logs
     pub fn query_audit_logs(&self, user_id: Option<&str>, limit: i32) -> Result<Vec<AuditLogEntry>, String> {
-        let mut stmt = if let Some(uid) = user_id {
-            self.conn.prepare(
+        let mut logs = Vec::new();
+
+        if let Some(uid) = user_id {
+            let mut stmt = self.conn.prepare(
                 "SELECT id, user_id, action, details, risk_level, created_at
                  FROM audit_logs WHERE user_id = ?1 ORDER BY created_at DESC LIMIT ?2"
-            ).map_err(|e| e.to_string())?
+            ).map_err(|e| e.to_string())?;
 
+            let mut rows = stmt.query(rusqlite::params![uid, limit]).map_err(|e| e.to_string())?;
+            while let Some(row) = rows.next().map_err(|e| e.to_string())? {
+                logs.push(AuditLogEntry {
+                    id: row.get(0).map_err(|e| e.to_string())?,
+                    user_id: row.get(1).map_err(|e| e.to_string())?,
+                    action: row.get(2).map_err(|e| e.to_string())?,
+                    details: row.get(3).map_err(|e| e.to_string())?,
+                    risk_level: row.get(4).map_err(|e| e.to_string())?,
+                    created_at: row.get(5).map_err(|e| e.to_string())?,
+                });
+            }
         } else {
-            self.conn.prepare(
+            let mut stmt = self.conn.prepare(
                 "SELECT id, user_id, action, details, risk_level, created_at
                  FROM audit_logs ORDER BY created_at DESC LIMIT ?1"
-            ).map_err(|e| e.to_string())?
-        };
+            ).map_err(|e| e.to_string())?;
 
-        let logs = stmt.query_map(if let Some(uid) = user_id { [uid, &limit.to_string()] } else { [&limit.to_string()] }, |row| {
-            Ok(AuditLogEntry {
-                id: row.get(0)?,
-                user_id: row.get(1)?,
-                action: row.get(2)?,
-                details: row.get(3)?,
-                risk_level: row.get(4)?,
-                created_at: row.get(5)?,
-            })
-        }).map_err(|e| e.to_string())?
-        .filter_map(|r| r.ok())
-        .collect();
+            let mut rows = stmt.query(rusqlite::params![limit]).map_err(|e| e.to_string())?;
+            while let Some(row) = rows.next().map_err(|e| e.to_string())? {
+                logs.push(AuditLogEntry {
+                    id: row.get(0).map_err(|e| e.to_string())?,
+                    user_id: row.get(1).map_err(|e| e.to_string())?,
+                    action: row.get(2).map_err(|e| e.to_string())?,
+                    details: row.get(3).map_err(|e| e.to_string())?,
+                    risk_level: row.get(4).map_err(|e| e.to_string())?,
+                    created_at: row.get(5).map_err(|e| e.to_string())?,
+                });
+            }
+        }
 
         Ok(logs)
     }

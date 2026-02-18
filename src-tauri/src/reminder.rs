@@ -84,7 +84,7 @@ pub fn delete_reminder_rule(rule_id: String) -> Result<(), String> {
 }
 
 #[tauri::command]
-pub fn get_reminder_records(user_id: String) -> Result<Vec<ReminderRecord>, String> {
+pub fn get_reminder_records(_user_id: String) -> Result<Vec<ReminderRecord>, String> {
     // TODO: Load from database
     Ok(Vec::new())
 }

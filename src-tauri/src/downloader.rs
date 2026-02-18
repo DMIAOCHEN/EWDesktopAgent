@@ -70,9 +70,7 @@ impl DownloadService {
                     // Extract from URL
                     url::Url::parse(&request.url)
                         .ok()
-                        .and_then(|u| u.path_segments())
-                        .and_then(|segments| segments.last())
-                        .map(|s| s.to_string())
+                        .and_then(|u| u.path_segments().map(|s| s.last().map(|p| p.to_string())).flatten())
                         .unwrap_or_else(|| "download".to_string())
                 })
         };

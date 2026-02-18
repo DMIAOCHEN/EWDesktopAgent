@@ -1,6 +1,5 @@
 // Configuration module
 use serde::{Deserialize, Serialize};
-use std::collections::HashMap;
 use std::fs;
 use std::path::PathBuf;
 use tracing::{error, info};
@@ -106,7 +105,7 @@ impl AppConfig {
             fs::create_dir_all(parent)?;
         }
         let content = serde_json::to_string_pretty(self)?;
-        fs::write(path, content)?;
+        fs::write(&path, content)?;
         info!("Saved config to {:?}", path);
         Ok(())
     }

@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useRef } from "react";
 import "./VoiceControl.css";
 
 interface Props {
@@ -7,7 +7,6 @@ interface Props {
 
 function VoiceControl({ onVoiceInput }: Props) {
   const [isListening, setIsListening] = useState(false);
-  const [isSpeaking, setIsSpeaking] = useState(false);
   const [voiceState, setVoiceState] = useState<"idle" | "listening" | "processing" | "speaking">("idle");
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
 
@@ -46,22 +45,6 @@ function VoiceControl({ onVoiceInput }: Props) {
       // Would receive text from ASR in production
       onVoiceInput("模拟语音输入");
     }, 1500);
-  };
-
-  const speak = (text: string) => {
-    if (!window.speechSynthesis) {
-      console.error("Speech synthesis not supported");
-      return;
-    }
-
-    const utterance = new SpeechSynthesisUtterance(text);
-    utterance.lang = "zh-CN";
-    utterance.onstart = () => setIsSpeaking(true);
-    utterance.onend = () => setIsSpeaking(false);
-    utterance.onerror = () => setIsSpeaking(false);
-
-    window.speechSynthesis.speak(utterance);
-    setVoiceState("speaking");
   };
 
   return (

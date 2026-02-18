@@ -1,8 +1,8 @@
 // Browser module - WebView2 management
 use serde::{Deserialize, Serialize};
 use std::sync::Mutex;
-use tauri::{AppHandle, Manager, WebviewUrl, WebviewWindowBuilder};
-use tracing::{error, info};
+use tauri::{AppHandle, Emitter};
+use tracing::info;
 
 /// Maximum memory per tab (200MB)
 const MAX_TAB_MEMORY_MB: u64 = 200;
@@ -154,7 +154,7 @@ pub fn navigate_tab(
     app.emit("browser-navigate", serde_json::json!({
         "tabId": tab_id,
         "url": url
-    })).map_err(|e| e.to_string())?;
+    })).map_err(|e: tauri::Error| e.to_string())?;
 
     info!("Navigating tab {} to {}", tab_id, url);
     Ok(())

@@ -61,14 +61,14 @@ impl VoiceService {
     }
 
     /// Process audio with VAD to detect speech segments
-    pub fn detect_speech(&self, audio_data: &[u8]) -> Result<Vec<SpeechSegment>, String> {
+    pub fn detect_speech(&self, _audio_data: &[u8]) -> Result<Vec<SpeechSegment>, String> {
         // TODO: Use Silero VAD to detect speech segments
         // let segments = self.vad.detect(audio_data)?;
         Ok(Vec::new())
     }
 
     /// Perform ASR (Automatic Speech Recognition) using third-party API
-    pub async fn recognize_speech(&self, audio_data: &[u8]) -> Result<String, String> {
+    pub async fn recognize_speech(&self, _audio_data: &[u8]) -> Result<String, String> {
         info!("Performing ASR with provider: {}", self.config.asr_provider);
 
         // TODO: Implement third-party ASR API integration
@@ -81,7 +81,7 @@ impl VoiceService {
 
     /// Synthesize speech using Kokoro (local TTS)
     /// Requires: kokoro-tts crate or ONNX model
-    pub async fn synthesize_kokoro(&self, text: &str) -> Result<Vec<u8>, String> {
+    pub async fn synthesize_kokoro(&self, _text: &str) -> Result<Vec<u8>, String> {
         info!("Synthesizing speech with Kokoro TTS");
 
         // TODO: Load Kokoro ONNX model
@@ -92,7 +92,7 @@ impl VoiceService {
     }
 
     /// Synthesize speech using cloud TTS (fallback)
-    pub async fn synthesize_cloud(&self, text: &str) -> Result<Vec<u8>, String> {
+    pub async fn synthesize_cloud(&self, _text: &str) -> Result<Vec<u8>, String> {
         info!("Synthesizing speech with cloud TTS");
 
         // TODO: Implement cloud TTS API (e.g., Azure, Google, 讯飞)
@@ -119,7 +119,7 @@ impl VoiceService {
     }
 
     /// Check if wake word is detected
-    pub fn detect_wakeword(&self, audio_data: &[u8]) -> Result<bool, String> {
+    pub fn detect_wakeword(&self, _audio_data: &[u8]) -> Result<bool, String> {
         // TODO: Use Snowboy to detect wake word
         // let detection = self.detector.detect(audio_data)?;
         // Ok(detection.is_wakeword())

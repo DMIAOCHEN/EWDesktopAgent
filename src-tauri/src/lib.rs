@@ -14,7 +14,8 @@ pub mod file_ops;
 pub mod downloader;
 pub mod notification;
 
-use browser::{BrowserState, init_browser_state};
+use browser::{init_browser_state};
+use tauri::Manager;
 use tracing::info;
 
 /// Initialize the application logging system
@@ -26,8 +27,6 @@ pub fn init_logging() {
 
     // Create log directory if it doesn't exist
     let _ = std::fs::create_dir_all(&log_dir);
-
-    let log_file = log_dir.join("app.log");
 
     // Setup file logging
     let file_appender = tracing_appender::rolling::daily(&log_dir, "app.log");
@@ -74,7 +73,7 @@ pub fn run() {
             storage::load_user_preferences,
             storage::log_audit,
             storage::query_audit_logs,
-            security::assess_risk,
+            core::security::assess_risk,
             auth::login,
             auth::logout,
             reminder::create_reminder_rule,

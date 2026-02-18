@@ -14,12 +14,6 @@ interface AiAction {
   value?: string;
 }
 
-interface RiskAssessment {
-  level: "Low" | "Medium" | "High";
-  reason: string;
-  requires_confirmation: boolean;
-}
-
 function AssistantPanel() {
   const [messages, setMessages] = useState<Message[]>([
     {

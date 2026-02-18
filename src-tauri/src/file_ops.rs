@@ -28,7 +28,7 @@ impl Default for PermissionManager {
 
 impl PermissionManager {
     /// Check if operation is allowed
-    pub fn check_permission(&self, path: &str, operation: &str) -> bool {
+    pub fn check_permission(&self, path: &str, _operation: &str) -> bool {
         let permissions = self.permissions.lock().unwrap();
 
         // Check exact match
