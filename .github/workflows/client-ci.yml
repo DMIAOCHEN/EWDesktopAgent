@@ -67,7 +67,7 @@ jobs:
 
     - name: Check Rust code
       working-directory: src-tauri
-      run: cargo check --verbose
+      run: cargo check --locked --verbose
 
   release:
     runs-on: windows-latest
