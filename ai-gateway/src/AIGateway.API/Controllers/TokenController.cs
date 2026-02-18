@@ -13,11 +13,7 @@ public class TokenController : ControllerBase
     public IActionResult ExchangeToken([FromBody] TokenExchangeRequest request)
     {
         // TODO: Implement token exchange logic with FastGPT
-        return Ok(new TokenExchangeResponse
-        {
-            InternalToken = "generated-internal-token",
-            ExpiresIn = 3600
-        });
+        return Ok(new TokenExchangeResponse("generated-internal-token", 3600));
     }
 
     /// <summary>
@@ -27,11 +23,7 @@ public class TokenController : ControllerBase
     public IActionResult ValidateToken([FromBody] TokenValidateRequest request)
     {
         // TODO: Implement token validation
-        return Ok(new TokenValidateResponse
-        {
-            IsValid = true,
-            UserId = Guid.NewGuid()
-        });
+        return Ok(new TokenValidateResponse(true, Guid.NewGuid()));
     }
 }
 
