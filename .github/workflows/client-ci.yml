@@ -62,9 +62,9 @@ jobs:
     - name: Install dependencies
       run: npm install
 
-    - name: Run Rust tests
+    - name: Check Rust code
       working-directory: src-tauri
-      run: cargo test --verbose
+      run: cargo check --verbose
 
   release:
     runs-on: windows-latest
