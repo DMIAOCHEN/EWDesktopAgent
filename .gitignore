@@ -1,23 +1,80 @@
+# =====================
+# 项目参考（不提交）
+# =====================
 reference_project/
 
-# Build results
+# =====================
+# 前端构建
+# =====================
+dist/
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# =====================
+# Rust / Tauri
+# =====================
+src-tauri/target/
+src-tauri/gen/
+*.rs.bk
+
+# =====================
+# .NET
+# =====================
 bin/
 obj/
 out/
-dist/
-
-# .NET
 *.user
 *.suo
 *.userosscache
 *.sln.docstates
 *.userprefs
+*.nupkg
+*.snupkg
+packages/
 
+# =====================
 # IDE
+# =====================
 .vs/
 .vscode/
 .idea/
+*.swp
+*.swo
+*~
 
+# =====================
 # OS
+# =====================
 .DS_Store
 Thumbs.db
+desktop.ini
+
+# =====================
+# 日志和临时文件
+# =====================
+*.log
+*.tmp
+*.temp
+*.bak
+*.orig
+
+# =====================
+# 环境配置
+# =====================
+.env
+.env.local
+.env.*.local
+*.local
+
+# =====================
+# 其他
+# =====================
+*.zip
+*.tar.gz
+*.rar
+
+# 临时脚本（构建辅助脚本不提交）
+src-tauri/create_icon.ps1
